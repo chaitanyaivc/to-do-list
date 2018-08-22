@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TO-DO Lisy</title>
+</head>
+<body>
+	<h1>To-Do List</h1>
+	<p id="pTotal"></p>
+ 	<input type="textbox" id="txt1" />
+    <input type="button" value="Add List" onclick="addList('ToDoListTable')" />
+    <input type="button" value="Delete List" onclick="deleteList('ToDoListTable')" />
+    <table id="ToDoListTable" width="350px" border="1">
+     </table>
+     <script type="text/javascript">
+     	function addList(myTable) {
+
+            var table = document.getElementById(myTable);
+
+            var rowCount = table.rows.length;
+            var row = table.insertRow(rowCount);
+
+          	var b=document.getElementById('txt1').value;
+ 			var cell1 = row.insertCell(0);
+            var element1 = document.createElement("input");
+            element1.type = "text";
+            element1.style.width="100%";
+            element1.name = "txtbox[]";
+            element1.value=b;
+            cell1.appendChild(element1);
+ 			var cell2 = row.insertCell(1);
+            var element2 = document.createElement("input");
+            element2.type = "checkbox";
+            element2.name="chkbox[]";
+            element2.addEventListener( 'change', function() {
+            	var textBoxElement = this.parentElement.parentElement.firstElementChild.getElementsByTagName("input")[0];
+			    if(this.checked) {
+	        		strikeOfATextBox(textBoxElement);
+	   			} else {
+	   				removeStrikeOfTextBox(textBoxElement);
+	   			}
+			});
+            cell2.appendChild(element2);
+			document.getElementById('txt1').value=" ";
+       }
+
+       function strikeOfATextBox(e) {
+       		e.style.textDecoration = "line-through";
+       }
+       function removeStrikeOfTextBox(e) {
+       		e.style.textDecoration = "none";
+       }
+       function deleteList(myTable) {
+
+            var table = document.getElementById(myTable);
+            var rowCount = table.rows.length;
+
+            for(var i=0; i<rowCount; i++) {
+                var row = table.rows[i];
+                var chkbox = row.cells[1].childNodes[0];
+                if(null != chkbox && true == chkbox.checked) {
+                    table.deleteRow(i);
+                    rowCount--;
+                    i--;
+            }
+            }
+        }
+        function handleChange(checkbox) {
+        	if(checkbox.checked == true){
+        	document.getElementsByTagName("tr")[i].strike();
+    		}
+        }
+     </script>
+</body>
+</html>
